@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rail Rush - Official</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        body { margin: 0; font-family: sans-serif; background: #0a0a0a; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; }
+        .container { width: 320px; background: #121212; padding: 30px; border-radius: 20px; text-align: center; border: 1px solid #333; }
+        .bold-title { color: #D2B48C; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+        .btn { width: 100%; padding: 12px; background: #966F33; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        #status-box { margin-top: 20px; padding: 10px; border-radius: 8px; font-size: 11px; background: #1a1a1a; border: 1px solid #444; color: #aaa; }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="loginPage">
+        <h2 class="bold-title">RAIL RUSH</h2>
+        <div style="display: flex; justify-content: center;">
+            <div id="g_id_onload"
+                 data-client_id="162633572571-rj6fticnhm0atjrtlooeejhd27397eri.apps.googleusercontent.com"
+                 data-callback="onSignIn"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin" data-type="standard"></div>
+        </div>
+        <div id="status-box">Checking connection...</div>
+    </div>
+
+    <script>
+        function onSignIn(response) {
+            alert("Success! Google account linked.");
+        }
+
+        window.onload = function() {
+            const status = document.getElementById('status-box');
+            status.innerHTML = "<b>Setup:</b> Copy this for Google Console:<br><br><code>" + window.location.origin + "</code>";
+        }
+    </script>
+</body>
+</html>
