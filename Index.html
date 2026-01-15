@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rail Rush - Final Setup</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        body { background: #0a0a0a; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { width: 350px; background: #121212; padding: 40px; border-radius: 20px; text-align: center; border: 1px solid #333; }
+        .bold-title { color: #D2B48C; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+        .btn { width: 100%; padding: 12px; background: #966F33; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        .btn:active { background: #5B270B; }
+        #status-box { margin-top: 20px; padding: 10px; border-radius: 8px; font-size: 12px; display: none; }
+        .error-msg { background: #441111; border: 1px solid red; color: #ff9999; display: block !important; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="loginPage">
+        <h1 class="bold-title">RAIL RUSH</h1>
+        <p>Click below to open Real Google Account</p>
+        
+        <div style="display: flex; justify-content: center;">
+            <div id="g_id_onload"
+                 data-client_id="162633572571-rj6fticnhm0atjrtlooeejhd27397eri.apps.googleusercontent.com"
+                 data-callback="onSignIn"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin" data-type="standard"></div>
+        </div>
+
+        <div id="status-box"></div>
+    </div>
+
+    <div class="container hidden" id="homePage">
+        <h1 class="bold-title">WELCOME</h1>
+        <h2 id="userName">User</h2>
+        <button class="btn" onclick="location.reload()">LOGOUT</button>
+    </div>
+
+    <script>
+        function onSignIn(response) {
+            const data = JSON.parse(atob(response.credential.split('.')[1]));
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('homePage').classList.remove('hidden');
+            document.getElementById('userName').innerText = data.name;
+        }
+
+        // THIS PART CHECKS FOR GOOGLE ERRORS AUTOMATICALLY
+        window.onload = function() {
+            const currentUrl = window.location.origin;
+            const statusBox = document.getElementById('status-box');
+
+            if (window.location.protocol === 'file:') {
+                statusBox.innerHTML = "<b>ERROR:</b> You are opening the file from your computer. Google won't work! <br><br> 1. Upload this to GitHub. <br> 2. Open the GitHub link.";
+                statusBox.className = "error-msg";
+            } else {
+                statusBox.innerHTML = "<b>SETUP HELP:</b> If the button doesn't open, copy this link: <br><br> <code style='color:#D2B48C'>" + currentUrl + "</code> <br><br> and paste it into Google Console 'Authorized Origins'.";
+                statusBox.style.display = "block";
+                statusBox.style.border = "1px solid #333";
+            }
+        }
+    </script>
+</body>
+</html>
